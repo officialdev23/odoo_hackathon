@@ -21,6 +21,12 @@ if (isset($_GET['action'])) {
             login($user);
 
             break;
+
+        case "register":
+
+            register($user);
+
+            break;
     }
 }
 
@@ -54,4 +60,56 @@ function login($user)
     $_SESSION['full_name'] = $data['first_name'] . " " . $data['last_name'];
 
     redirect("../dashboard.php");
+}
+
+function register($user)
+{
+
+    $first = sanitize($_POST['first_name']);
+
+    $last = sanitize($_POST['last_name']);
+
+    $email = sanitize($_POST['email']);
+
+    $phone = sanitize($_POST['phone']);
+
+    $password = $_POST['password'];
+
+    $confirm = $_POST['confirm_password'];
+
+    if ($password != $confirm) {
+        setFlash("danger", "Passwords do not match");
+
+        redirect("../signup.php");
+    }
+
+    if ($user->emailExists($email)) {
+        setFlash("danger", "Email already exists");
+
+        redirect("../signup.php");
+    }
+
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+
+    $employeeCode = "EMP" . time();
+
+    $user->register([
+
+        'employee_code' => $employeeCode,
+
+        'first_name' => $first,
+
+        'last_name' => $last,
+
+        'email' => $email,
+
+        'phone' => $phone,
+
+        'password' => $hash
+
+    ]);
+
+    setFlash("success", "Account created successfully.");
+
+    redirect("../login.php");
 }
