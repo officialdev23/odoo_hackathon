@@ -15,7 +15,7 @@ $allowedPages = [
     "assets",
     "allocation",
     "maintenance",
-    "reports",
+    "report_analysis",
     "notifications",
     "settings"
 ];

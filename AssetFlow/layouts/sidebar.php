@@ -1,98 +1,109 @@
+<?php
+// Ensure session details are available for user role checking
+require_once __DIR__ . "/../config/config.php";
+require_once ROOT_PATH . "/includes/session.php";
+
+$currentPage = $page ?? 'dashboard_home';
+?>
 <div class="sidebar">
 
-    <div class="logo" style="display: flex; align-items: center; gap: 10px;">
-        <img src="<?= BASE_URL ?>assets/logo.svg" alt="AssetFlow Logo" style="width: 32px; height: 32px;">
+    <div class="logo">
+        <img src="<?= BASE_URL ?>assets/logo.svg" alt="AssetFlow Logo">
         <span>AssetFlow</span>
     </div>
 
     <ul>
-
-        <li>
-            <a href="<?= BASE_URL ?>dashboard.php?page=dashboard_home">
+        <!-- Dashboard Home -->
+        <li class="nav-item">
+            <a class="nav-link <?= $currentPage == "dashboard_home" ? "active" : ""; ?>" 
+               href="<?= BASE_URL ?>dashboard.php?page=dashboard_home">
                 <i class="fa-solid fa-chart-line"></i>
-                Dashboard
+                <span>Dashboard</span>
             </a>
         </li>
 
-        <li>
-            <a href="<?= BASE_URL ?>dashboard.php?page=organization">
+        <!-- Organization -->
+        <li class="nav-item">
+            <a class="nav-link <?= $currentPage == "organization" ? "active" : ""; ?>" 
+               href="<?= BASE_URL ?>dashboard.php?page=organization">
                 <i class="fa-solid fa-building"></i>
-                Organization
+                <span>Organization</span>
             </a>
         </li>
 
+        <!-- Employees -->
         <li class="nav-item">
-
-            <a
-                class="nav-link <?= $page == "employees" ? "active" : ""; ?>"
-                href="<?= BASE_URL ?>dashboard.php?page=employees">
-
+            <a class="nav-link <?= $currentPage == "employees" ? "active" : ""; ?>" 
+               href="<?= BASE_URL ?>dashboard.php?page=employees">
                 <i class="fa-solid fa-users"></i>
-
                 <span>Employees</span>
-
-            </a>
-
-        </li>
-
-        <li>
-            <a href="<?= BASE_URL ?>dashboard.php?page=assets">
-                <i class="fa-solid fa-box"></i>
-                Assets
             </a>
         </li>
 
+        <!-- Assets -->
         <li class="nav-item">
+            <a class="nav-link <?= $currentPage == "assets" ? "active" : ""; ?>" 
+               href="<?= BASE_URL ?>dashboard.php?page=assets">
+                <i class="fa-solid fa-box"></i>
+                <span>Assets</span>
+            </a>
+        </li>
 
-            <a
-
-                class="nav-link <?= $page == "allocation" ? "active" : ""; ?>"
-
-                href="<?= BASE_URL ?>dashboard.php?page=allocation">
-
+        <!-- Allocation -->
+        <li class="nav-item">
+            <a class="nav-link <?= $currentPage == "allocation" ? "active" : ""; ?>" 
+               href="<?= BASE_URL ?>dashboard.php?page=allocation">
                 <i class="fa-solid fa-right-left"></i>
-
                 <span>Allocation</span>
-
             </a>
-
         </li>
 
-        <li>
-            <a href="<?= BASE_URL ?>dashboard.php?page=maintenance">
+        <!-- Maintenance -->
+        <li class="nav-item">
+            <a class="nav-link <?= $currentPage == "maintenance" ? "active" : ""; ?>" 
+               href="<?= BASE_URL ?>dashboard.php?page=maintenance">
                 <i class="fa-solid fa-screwdriver-wrench"></i>
-                Maintenance
+                <span>Maintenance</span>
             </a>
         </li>
 
+        <!-- Reports -->
         <li>
-            <a href="<?= BASE_URL ?>dashboard.php?page=reports">
+            <a href="<?= BASE_URL ?>dashboard.php?page=report_analysis">
                 <i class="fa-solid fa-chart-column"></i>
                 Reports
             </a>
         </li>
 
-        <li>
-            <a href="<?= BASE_URL ?>dashboard.php?page=notifications">
+        <!-- Notifications -->
+        <li class="nav-item">
+            <a class="nav-link <?= $currentPage == "notifications" ? "active" : ""; ?>" 
+               href="<?= BASE_URL ?>dashboard.php?page=notifications">
                 <i class="fa-solid fa-bell"></i>
-                Notifications
+                <span>Notifications</span>
             </a>
         </li>
 
-        <li>
-            <a href="<?= BASE_URL ?>dashboard.php?page=settings">
+        <!-- Settings -->
+        <li class="nav-item">
+            <a class="nav-link <?= $currentPage == "settings" ? "active" : ""; ?>" 
+               href="<?= BASE_URL ?>dashboard.php?page=settings">
                 <i class="fa-solid fa-gear"></i>
-                Settings
+                <span>Settings</span>
             </a>
         </li>
 
-        <li>
-            <a href="<?= BASE_URL ?>logout.php">
+        <!-- Divider line -->
+        <li class="nav-divider" style="height: 1px; background: rgba(255,255,255,0.08); margin: 15px 0;"></li>
+
+        <!-- Logout -->
+        <li class="nav-item">
+            <a class="nav-link logout-link" 
+               href="<?= BASE_URL ?>logout.php">
                 <i class="fa-solid fa-right-from-bracket"></i>
-                Logout
+                <span>Logout</span>
             </a>
         </li>
-
     </ul>
 
 </div>

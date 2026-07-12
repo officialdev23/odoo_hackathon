@@ -74,39 +74,22 @@ $employees = $model->getEmployees();
 
         </div>
 
-        <table
-
-            class="table table-hover"
-
-            id="allocationTable">
-
-            <thead class="table-dark">
-
-                <tr>
-
-                    <th>Asset</th>
-
-                    <th>Employee</th>
-
-                    <th>Department</th>
-
-                    <th>Allocated</th>
-
-                    <th>Expected Return</th>
-
-                    <th>Status</th>
-
-                    <th width="180">Action</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <?php foreach ($allocations as $row): ?>
-
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0" id="allocationTable">
+                <thead>
                     <tr>
+                        <th>Asset</th>
+                        <th>Employee</th>
+                        <th>Department</th>
+                        <th>Allocated</th>
+                        <th>Expected Return</th>
+                        <th>Status</th>
+                        <th style="width: 180px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($allocations as $row): ?>
+                        <tr>
 
                         <td>
 
@@ -227,6 +210,7 @@ $employees = $model->getEmployees();
             </tbody>
 
         </table>
+        </div>
 
     </div>
 

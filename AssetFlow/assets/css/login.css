@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --primary: #4F46E5;
-    --primary-light: #6366F1;
-    --primary-glow: rgba(79, 70, 229, 0.1);
-    --bg-light: #f8fafc;
+    --primary: #d4a373;
+    --primary-light: #e6ccb2;
+    --primary-glow: rgba(212, 163, 115, 0.1);
+    --bg-light: #fefae0;
     --card-bg: #ffffff;
-    --card-border: #e2e8f0;
+    --card-border: #e6ccb2;
     --input-bg: #ffffff;
     --input-border: #cbd5e1;
-    --input-focus-border: #4F46E5;
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-    --illus-bg: #f1f5f9;
+    --input-focus-border: #d4a373;
+    --text-main: #582f0e;
+    --text-muted: #8c6a5c;
+    --illus-bg: #faedcd;
 }
 
 * {

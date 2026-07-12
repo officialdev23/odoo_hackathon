@@ -226,22 +226,32 @@ $chart = $model->assetsByCategory();
 
     </div>
 
-    <!-- Chart -->
-
-    <div class="card shadow-sm mt-5">
-
-        <div class="card-header">
-
-            <strong>Assets by Category</strong>
-
+    <!-- Dual Charts Row -->
+    <div class="row g-4 mt-2">
+        <!-- Line Chart -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <strong>Assets by Category (Line Chart)</strong>
+                </div>
+                <div class="card-body">
+                    <canvas id="assetLineChart" height="150"></canvas>
+                </div>
+            </div>
         </div>
-
-        <div class="card-body">
-
-            <canvas id="assetChart" height="100"></canvas>
-
+        <!-- Pie Chart -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <strong>Assets Distribution (Pie Chart)</strong>
+                </div>
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <div style="width: 100%; max-width: 250px; height: 250px;">
+                        <canvas id="assetPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
 
     <div class="row mt-4">
@@ -373,57 +383,101 @@ $chart = $model->assetsByCategory();
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    const ctx = document.getElementById('assetChart');
+    const labels = [
+        <?php foreach ($chart as $c) { ?>
+            '<?= addslashes($c["category_name"]) ?>',
+        <?php } ?>
+    ];
 
-    new Chart(ctx, {
+    const dataValues = [
+        <?php foreach ($chart as $c) { ?>
+            <?= $c["total"] ?>,
+        <?php } ?>
+    ];
 
-        type: 'bar',
-
+    // Line Chart
+    const ctxLine = document.getElementById('assetLineChart').getContext('2d');
+    new Chart(ctxLine, {
+        type: 'line',
         data: {
-
-            labels: [
-
-                <?php foreach ($chart as $c) { ?>
-
-                    '<?= $c["category_name"] ?>',
-
-                <?php } ?>
-
-            ],
-
+            labels: labels,
             datasets: [{
-
-                label: 'Assets',
-
-                data: [
-
-                    <?php foreach ($chart as $c) { ?>
-
-                        <?= $c["total"] ?>,
-
-                    <?php } ?>
-
-                ],
-
-                backgroundColor: '#4F46E5'
-
+                label: 'Assets Count',
+                data: dataValues,
+                borderColor: '#d4a373',
+                backgroundColor: 'rgba(212, 163, 115, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#d4a373',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7
             }]
-
         },
-
         options: {
-
             responsive: true,
-
+            maintainAspectRatio: false,
             plugins: {
-
                 legend: {
                     display: false
                 }
-
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
             }
-
         }
+    });
 
+    // Pie Chart
+    const ctxPie = document.getElementById('assetPieChart').getContext('2d');
+    new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: dataValues,
+                backgroundColor: [
+                    '#ccd5ae',
+                    '#e9edc9',
+                    '#faedcd',
+                    '#d4a373',
+                    '#e8a598',
+                    '#b5e2fa',
+                    '#f0a6ca',
+                    '#dfc7c1'
+                ],
+                borderWidth: 2,
+                borderColor: '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12,
+                        padding: 10,
+                        font: {
+                            family: 'Poppins',
+                            size: 11
+                        }
+                    }
+                }
+            }
+        }
     });
 </script>
