@@ -302,7 +302,7 @@
 
     <!-- Button -->
     <div class="text-end mb-5">
-        <a href="/odoo_hackathon/AssetFlow/dashboard.php?page=reports">
+        <a href="<?= BASE_URL ?>dashboard.php?page=reports">
             <button class="btn btn-primary btn-lg px-5" id="generateReportBtn" type="submit" form="reportForm">
                 Generate Report
             </button>
