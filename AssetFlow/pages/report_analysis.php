@@ -84,7 +84,7 @@
 
         <div class="card-body">
 
-            <form id="reportForm" method="POST" action="reports.php">
+            <form id="reportForm" method="POST" action="/odoo_hackathon/AssetFlow/pages/reports.php">
 
                 <div class="row g-3">
 
