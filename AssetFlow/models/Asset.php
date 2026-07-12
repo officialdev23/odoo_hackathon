@@ -12,22 +12,59 @@ class Asset
         $this->conn = $db->connect();
     }
 
-    // Get all assets
-    public function getAll()
+    public function getAll($filters = [])
     {
         $sql = "SELECT
-                    a.*,
-                    c.category_name,
-                    d.department_name
-                FROM assets a
-                INNER JOIN asset_categories c
-                    ON a.category_id = c.category_id
-                INNER JOIN departments d
-                    ON a.department_id = d.department_id
-                ORDER BY a.asset_id DESC";
+                a.*,
+                c.category_name,
+                d.department_name
+            FROM assets a
+            INNER JOIN asset_categories c
+                ON a.category_id = c.category_id
+            INNER JOIN departments d
+                ON a.department_id = d.department_id
+            WHERE 1=1";
+
+        $params = [];
+
+        if (!empty($filters['search'])) {
+            $sql .= " AND (
+                    a.asset_name LIKE ?
+                    OR a.asset_code LIKE ?
+                  )";
+
+            $search = "%" . $filters['search'] . "%";
+
+            $params[] = $search;
+            $params[] = $search;
+        }
+
+        if (!empty($filters['category'])) {
+
+            $sql .= " AND a.category_id=?";
+
+            $params[] = $filters['category'];
+        }
+
+        if (!empty($filters['department'])) {
+
+            $sql .= " AND a.department_id=?";
+
+            $params[] = $filters['department'];
+        }
+
+        if (!empty($filters['status'])) {
+
+            $sql .= " AND a.asset_status=?";
+
+            $params[] = $filters['status'];
+        }
+
+        $sql .= " ORDER BY a.asset_id DESC";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
+
+        $stmt->execute($params);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -77,10 +114,11 @@ class Asset
             vendor,
             serial_number,
             asset_status,
-            remarks
+            remarks,
+            asset_image
         )
         VALUES
-        (?,?,?,?,?,?,?,?,?,?)";
+        (?,?,?,?,?,?,?,?,?,?,?)";
 
         $stmt = $this->conn->prepare($sql);
 
@@ -94,7 +132,77 @@ class Asset
             $data['vendor'],
             $data['serial_number'],
             $data['asset_status'],
-            $data['remarks']
+            $data['remarks'],
+            $data['asset_image']
         ]);
+    }
+
+
+
+    // Get Single Asset
+    public function getById($id)
+    {
+        $sql = "SELECT
+                a.*,
+                c.category_name,
+                d.department_name
+            FROM assets a
+            INNER JOIN asset_categories c
+                ON a.category_id = c.category_id
+            INNER JOIN departments d
+                ON a.department_id = d.department_id
+            WHERE asset_id=?";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Update Asset
+    public function update($data)
+    {
+        $sql = "UPDATE assets SET
+
+            asset_name=?,
+            category_id=?,
+            department_id=?,
+            purchase_date=?,
+            purchase_cost=?,
+            vendor=?,
+            serial_number=?,
+            asset_status=?,
+            remarks=?,
+            asset_image=?
+
+            WHERE asset_id=?";
+
+        $stmt = $this->conn->prepare($sql);
+
+        return $stmt->execute([
+
+            $data['asset_name'],
+            $data['category_id'],
+            $data['department_id'],
+            $data['purchase_date'],
+            $data['purchase_cost'],
+            $data['vendor'],
+            $data['serial_number'],
+            $data['asset_status'],
+            $data['remarks'],
+            $data['asset_image'],
+            $data['asset_id']
+
+        ]);
+    }
+
+    // Delete Asset
+    public function delete($id)
+    {
+        $stmt = $this->conn->prepare(
+            "DELETE FROM assets WHERE asset_id=?"
+        );
+
+        return $stmt->execute([$id]);
     }
 }

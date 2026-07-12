@@ -234,3 +234,59 @@ body {
     width: 22px;
 
 }
+
+/* ==========================================
+   Asset Table
+========================================== */
+
+.table {
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+}
+
+.table td,
+.table th {
+
+    vertical-align: middle;
+
+}
+
+.table tbody tr {
+
+    transition: 0.25s;
+
+}
+
+.table tbody tr:hover {
+
+    background: #f8fbff;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .08);
+
+}
+
+.btn-outline-primary,
+.btn-outline-warning,
+.btn-outline-danger {
+
+    border-radius: 10px;
+
+}
+
+.form-control,
+.form-select {
+
+    border-radius: 12px;
+
+}
+
+.badge {
+
+    font-size: 13px;
+
+}
