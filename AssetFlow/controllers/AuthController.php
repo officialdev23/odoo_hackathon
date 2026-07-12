@@ -53,11 +53,10 @@ function login($user)
         redirect("../login.php");
     }
 
-    $_SESSION['user_id'] = $data['user_id'];
-
+    $_SESSION['user_id']   = $data['user_id'];
     $_SESSION['role_name'] = $data['role_name'];
-
     $_SESSION['full_name'] = $data['first_name'] . " " . $data['last_name'];
+    $_SESSION['email']     = $data['email'];
 
     redirect("../dashboard.php");
 }

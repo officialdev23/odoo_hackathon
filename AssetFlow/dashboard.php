@@ -1,45 +1,79 @@
 <?php
 
-require_once __DIR__ . "/config/config.php";
-require_once ROOT_PATH . "/includes/session.php";
-require_once ROOT_PATH . "/middleware/AuthMiddleware.php";
+require_once "layouts/header.php";
+
+require_once "layouts/sidebar.php";
+
+require_once "layouts/navbar.php";
 
 ?>
 
-<!DOCTYPE html>
+<div class="content">
 
-<html>
+    <div class="cards">
 
-<head>
+        <div class="card-box">
 
-    <title>Dashboard</title>
+            <h2>245</h2>
 
-</head>
+            <p>Total Assets</p>
 
-<body>
+        </div>
 
-    <h1>
+        <div class="card-box">
 
-        Welcome
+            <h2>180</h2>
 
-        <?= $_SESSION['full_name']; ?>
+            <p>Allocated</p>
 
-    </h1>
+        </div>
 
-    <h3>
+        <div class="card-box">
 
-        Role :
+            <h2>18</h2>
 
-        <?= $_SESSION['role_name']; ?>
+            <p>Maintenance</p>
 
-    </h3>
+        </div>
 
-    <a href="logout.php">
+        <div class="card-box">
 
-        Logout
+            <h2>25</h2>
 
-    </a>
+            <p>Bookings</p>
 
-</body>
+        </div>
 
-</html>
+    </div>
+
+    <canvas id="assetChart"></canvas>
+
+</div>
+
+<script>
+    new Chart(document.getElementById('assetChart'), {
+
+        type: 'bar',
+
+        data: {
+
+            labels: ['Electronics', 'Furniture', 'Vehicles', 'Equipment'],
+
+            datasets: [{
+
+                label: 'Assets',
+
+                data: [120, 80, 25, 20]
+
+            }]
+
+        }
+
+    });
+</script>
+
+<?php
+
+require_once "layouts/footer.php";
+
+?>
