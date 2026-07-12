@@ -290,3 +290,25 @@ body {
     font-size: 13px;
 
 }
+
+.dashboard-card {
+
+    transition: .3s;
+
+    border-radius: 14px;
+
+}
+
+.dashboard-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow: 0 12px 25px rgba(0, 0, 0, .12);
+
+}
+
+.card {
+
+    border-radius: 14px;
+
+}

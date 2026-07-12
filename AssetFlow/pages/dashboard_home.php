@@ -21,9 +21,50 @@ $chart = $model->assetsByCategory();
 
 <div class="container-fluid">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
 
-        <h2 class="fw-bold">Dashboard</h2>
+        <div>
+
+            <h2 class="fw-bold mb-1">Dashboard</h2>
+
+            <small class="text-muted">
+
+                Welcome, <?= $_SESSION['full_name']; ?>
+
+            </small>
+
+        </div>
+
+        <div class="d-flex gap-2 mt-2 mt-md-0">
+
+            <a href="<?= BASE_URL ?>dashboard.php?page=assets"
+                class="btn btn-primary">
+
+                <i class="fa-solid fa-laptop"></i>
+
+                Add Asset
+
+            </a>
+
+            <a href="<?= BASE_URL ?>dashboard.php?page=employees"
+                class="btn btn-success">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Add Employee
+
+            </a>
+
+            <a href="<?= BASE_URL ?>dashboard.php?page=allocation"
+                class="btn btn-warning text-dark">
+
+                <i class="fa-solid fa-right-left"></i>
+
+                Allocate Asset
+
+            </a>
+
+        </div>
 
     </div>
 
@@ -33,7 +74,7 @@ $chart = $model->assetsByCategory();
 
         <div class="col-lg-2 col-md-4">
 
-            <div class="card shadow-sm border-0">
+            <div class="card dashboard-card shadow-sm border-0">
 
                 <div class="card-body">
 
@@ -49,7 +90,7 @@ $chart = $model->assetsByCategory();
 
         <div class="col-lg-2 col-md-4">
 
-            <div class="card shadow-sm border-0">
+            <div class="card dashboard-card shadow-sm border-0">
 
                 <div class="card-body">
 
@@ -65,7 +106,7 @@ $chart = $model->assetsByCategory();
 
         <div class="col-lg-2 col-md-4">
 
-            <div class="card shadow-sm border-0">
+            <div class="card dashboard-card shadow-sm border-0">
 
                 <div class="card-body">
 
@@ -81,7 +122,7 @@ $chart = $model->assetsByCategory();
 
         <div class="col-lg-2 col-md-4">
 
-            <div class="card shadow-sm border-0">
+            <div class="card dashboard-card shadow-sm border-0">
 
                 <div class="card-body">
 
@@ -97,7 +138,7 @@ $chart = $model->assetsByCategory();
 
         <div class="col-lg-2 col-md-4">
 
-            <div class="card shadow-sm border-0">
+            <div class="card dashboard-card shadow-sm border-0">
 
                 <div class="card-body">
 
@@ -113,7 +154,7 @@ $chart = $model->assetsByCategory();
 
         <div class="col-lg-2 col-md-4">
 
-            <div class="card shadow-sm border-0">
+            <div class="card dashboard-card shadow-sm border-0">
 
                 <div class="card-body">
 
@@ -122,6 +163,62 @@ $chart = $model->assetsByCategory();
                     <small class="text-muted">Categories</small>
 
                 </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="alert alert-light border shadow-sm mt-4">
+
+        <div class="row text-center">
+
+            <div class="col-md-3">
+
+                <h4 class="text-primary">
+
+                    <?= $availableAssets ?>
+
+                </h4>
+
+                <small>Ready for Allocation</small>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h4 class="text-warning">
+
+                    <?= $allocatedAssets ?>
+
+                </h4>
+
+                <small>Currently Allocated</small>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h4 class="text-success">
+
+                    <?= $totalEmployees ?>
+
+                </h4>
+
+                <small>Employees</small>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h4 class="text-danger">
+
+                    <?= $totalDepartments ?>
+
+                </h4>
+
+                <small>Departments</small>
 
             </div>
 
@@ -258,6 +355,18 @@ $chart = $model->assetsByCategory();
         </div>
 
     </div>
+
+</div>
+
+<div class="text-center mt-5 text-muted">
+
+    AssetFlow Pro v<?= APP_VERSION ?>
+
+    |
+
+    Last Login :
+
+    <?= date("d M Y h:i A"); ?>
 
 </div>
 
