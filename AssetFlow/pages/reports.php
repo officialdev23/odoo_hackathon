@@ -9,21 +9,108 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
     body {
-        background: #f8f9fa
+        background: #fefae0 !important;
+        font-family: 'Poppins', sans-serif !important;
+        color: #582f0e !important;
     }
 
     .chart-box {
         height: 320px
     }
 
-    .report-card {
-        box-shadow: 0 .25rem 1rem rgba(0, 0, 0, .08)
+    /* Card styling to match mild theme */
+    .card.report-card {
+        background-color: #ffffff !important;
+        border: 1px solid #e6ccb2 !important;
+        border-radius: 14px !important;
+        box-shadow: 0 4px 12px rgba(212, 163, 115, 0.05) !important;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+
+    .card.report-card .card-header {
+        background-color: #faedcd !important;
+        border-bottom: 1px solid #e6ccb2 !important;
+        color: #582f0e !important;
+        font-weight: 600 !important;
+        padding: 14px 20px !important;
+    }
+
+    .card.report-card .card-body {
+        padding: 20px !important;
+    }
+
+    /* Headings */
+    h2, h5 {
+        color: #582f0e !important;
+        font-weight: 700 !important;
+    }
+
+    .text-secondary {
+        color: #8c6a5c !important;
+    }
+
+    /* Table styling to match main table theme */
+    .table {
+        border-collapse: separate !important;
+        border-spacing: 0 !important;
+        background-color: #ffffff !important;
+        border: 1px solid #e6ccb2 !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        margin-bottom: 0 !important;
+    }
+
+    .table thead th {
+        background-color: #faedcd !important; /* Soft sand beige */
+        color: #582f0e !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        padding: 14px 16px !important;
+        border-bottom: 2px solid #e6ccb2 !important;
+        border-top: none !important;
+    }
+
+    .table td {
+        padding: 14px 16px !important;
+        border-bottom: 1px solid #e6ccb2 !important;
+        color: #582f0e !important;
+        font-size: 13.5px !important;
+        vertical-align: middle !important;
+    }
+
+    .table tbody tr {
+        transition: all 0.2s ease !important;
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(212, 163, 115, 0.06) !important;
+    }
+
+    /* Custom print button */
+    .btn-outline-dark {
+        border-color: #d4a373 !important;
+        color: #582f0e !important;
+        font-weight: 600 !important;
+        border-radius: 10px !important;
+        padding: 8px 16px !important;
+        transition: all 0.2s ease !important;
+    }
+
+    .btn-outline-dark:hover {
+        background-color: #d4a373 !important;
+        color: #ffffff !important;
+        border-color: #d4a373 !important;
     }
 
     @media print {
         .no-print {
-            display: none
+            display: none !important;
         }
     }
     </style>
@@ -209,40 +296,77 @@
         data,
         options: {
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: 'Poppins',
+                            size: 12
+                        }
+                    }
+                }
+            }
         }
     });
+
+    const palette = ['#d4a373', '#e6ccb2', '#faedcd', '#e8a598', '#ccd5ae'];
+
     mk('pie1', 'pie', {
         labels: ['Laptop', 'Desktop', 'Printer', 'Monitor'],
         datasets: [{
-            data: [45, 20, 15, 20]
+            data: [45, 20, 15, 20],
+            backgroundColor: palette,
+            borderColor: '#ffffff',
+            borderWidth: 2
         }]
     });
     mk('pie2', 'pie', {
         labels: ['Allocated', 'Available', 'Damaged'],
         datasets: [{
-            data: [70, 20, 10]
+            data: [70, 20, 10],
+            backgroundColor: ['#d4a373', '#ccd5ae', '#e8a598'],
+            borderColor: '#ffffff',
+            borderWidth: 2
         }]
     });
-    mk('bar1', 'bar', {
+    mk('bar1', 'line', {
         labels: ['IT', 'HR', 'Sales', 'Accounts'],
         datasets: [{
             label: 'Assets',
-            data: [120, 45, 60, 35]
+            data: [120, 45, 60, 35],
+            borderColor: '#d4a373',
+            backgroundColor: 'rgba(212, 163, 115, 0.15)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#d4a373'
         }]
     });
-    mk('bar2', 'bar', {
+    mk('bar2', 'line', {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [{
             label: 'Allocated',
-            data: [15, 22, 30, 28, 35, 40]
+            data: [15, 22, 30, 28, 35, 40],
+            borderColor: '#ccd5ae',
+            backgroundColor: 'rgba(204, 213, 174, 0.15)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#ccd5ae'
         }]
     });
-    mk('bar3', 'bar', {
+    mk('bar3', 'line', {
         labels: ['Screen', 'Battery', 'Keyboard', 'Motherboard'],
         datasets: [{
             label: 'Damage',
-            data: [5, 3, 2, 1]
+            data: [5, 3, 2, 1],
+            borderColor: '#e8a598',
+            backgroundColor: 'rgba(232, 165, 152, 0.15)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#e8a598'
         }]
     });
     gsap.from('.report-card', {
