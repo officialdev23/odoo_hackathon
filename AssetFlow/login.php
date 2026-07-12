@@ -50,7 +50,7 @@ if (isset($_SESSION['user_id'])) {
                 <!-- Session Alert Flash Messages -->
                 <?php showFlash(); ?>
 
-                <form action="controllers/AuthController.php?action=login" method="POST">
+                <form id="login-form" action="controllers/AuthController.php?action=login" method="POST" novalidate>
                     
                     <!-- Email field -->
                     <div class="mb-3">
@@ -63,6 +63,8 @@ if (isset($_SESSION['user_id'])) {
                                 class="form-control"
                                 placeholder="name@company.com"
                                 name="email"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                title="Please enter a valid email address"
                                 required>
                         </div>
                     </div>
@@ -78,6 +80,8 @@ if (isset($_SESSION['user_id'])) {
                                 class="form-control form-control-password"
                                 placeholder="••••••••"
                                 name="password"
+                                minlength="8"
+                                title="Password must be at least 8 characters long"
                                 required>
                             <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('password-field', this)">
                                 <i class="fa-solid fa-eye"></i>
@@ -115,7 +119,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
 
-    <!-- UI Password Reveal Script -->
+    <!-- UI Password Reveal Script and Validation -->
     <script>
         function togglePasswordVisibility(inputId, btn) {
             const input = document.getElementById(inputId);
@@ -131,6 +135,56 @@ if (isset($_SESSION['user_id'])) {
                 icon.classList.add('fa-eye');
             }
         }
+
+        // Custom UI Validation Auto Detect
+        const form = document.getElementById('login-form');
+        const inputs = form.querySelectorAll('input:not([type="checkbox"])');
+
+        inputs.forEach(input => {
+            // Create error message element dynamically
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'text-danger mt-1';
+            errorDiv.style.fontSize = '0.875em';
+            errorDiv.style.display = 'none';
+            input.closest('.mb-3').appendChild(errorDiv);
+
+            const validateInput = () => {
+                if (!input.validity.valid) {
+                    input.classList.add('is-invalid');
+                    input.closest('.input-wrapper').style.borderColor = '#dc3545'; 
+                    errorDiv.textContent = input.validationMessage;
+                    errorDiv.style.display = 'block';
+                } else {
+                    input.classList.remove('is-invalid');
+                    input.closest('.input-wrapper').style.borderColor = ''; 
+                    errorDiv.style.display = 'none';
+                }
+            };
+
+            // Detect changes while typing
+            input.addEventListener('input', validateInput);
+            input.addEventListener('blur', validateInput);
+        });
+
+        // Validate on form submit
+        form.addEventListener('submit', event => {
+            let isValid = true;
+            inputs.forEach(input => {
+                if (!input.validity.valid) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                    input.closest('.input-wrapper').style.borderColor = '#dc3545';
+                    const errorDiv = input.closest('.mb-3').querySelector('.text-danger');
+                    errorDiv.textContent = input.validationMessage;
+                    errorDiv.style.display = 'block';
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        });
     </script>
 
 </body>
