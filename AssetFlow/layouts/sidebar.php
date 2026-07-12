@@ -1,68 +1,73 @@
 <div class="sidebar">
 
     <div class="logo">
-
         <i class="fa-solid fa-cubes"></i>
-
         <span>AssetFlow</span>
-
     </div>
 
     <ul>
 
-        <li class="active">
-            <i class="fa-solid fa-chart-line"></i>
-            Dashboard
+        <li>
+            <a href="<?= BASE_URL ?>dashboard.php?page=dashboard_home">
+                <i class="fa-solid fa-chart-line"></i>
+                Dashboard
+            </a>
         </li>
 
         <li>
-            <i class="fa-solid fa-building"></i>
-            Organization
+            <a href="<?= BASE_URL ?>dashboard.php?page=organization">
+                <i class="fa-solid fa-building"></i>
+                Organization
+            </a>
         </li>
 
         <li>
-            <i class="fa-solid fa-box"></i>
-            Assets
+            <a href="<?= BASE_URL ?>dashboard.php?page=assets">
+                <i class="fa-solid fa-box"></i>
+                Assets
+            </a>
         </li>
 
         <li>
-            <i class="fa-solid fa-right-left"></i>
-            Allocation
+            <a href="<?= BASE_URL ?>dashboard.php?page=allocation">
+                <i class="fa-solid fa-right-left"></i>
+                Allocation
+            </a>
         </li>
 
         <li>
-            <i class="fa-solid fa-calendar-days"></i>
-            Booking
+            <a href="<?= BASE_URL ?>dashboard.php?page=maintenance">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                Maintenance
+            </a>
         </li>
 
         <li>
-            <i class="fa-solid fa-screwdriver-wrench"></i>
-            Maintenance
+            <a href="<?= BASE_URL ?>dashboard.php?page=reports">
+                <i class="fa-solid fa-chart-column"></i>
+                Reports
+            </a>
         </li>
 
         <li>
-            <i class="fa-solid fa-clipboard-check"></i>
-            Audit
+            <a href="<?= BASE_URL ?>dashboard.php?page=notifications">
+                <i class="fa-solid fa-bell"></i>
+                Notifications
+            </a>
         </li>
 
         <li>
-            <i class="fa-solid fa-chart-column"></i>
-            Reports
+            <a href="<?= BASE_URL ?>dashboard.php?page=settings">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
         </li>
 
         <li>
-            <i class="fa-solid fa-bell"></i>
-            Notifications
-        </li>
-
-        <li>
-            <i class="fa-solid fa-gear"></i>
-            Settings
-        </li>
-
-        <li>
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Logout
+            <a href="<?= BASE_URL ?>logout.php">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
         </li>
 
     </ul>

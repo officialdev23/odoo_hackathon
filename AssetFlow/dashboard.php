@@ -1,79 +1,46 @@
 <?php
 
-require_once "layouts/header.php";
+require_once __DIR__ . "/config/config.php";
+require_once ROOT_PATH . "/includes/session.php";
+require_once ROOT_PATH . "/middleware/AuthMiddleware.php";
 
-require_once "layouts/sidebar.php";
+require_once ROOT_PATH . "/layouts/header.php";
+require_once ROOT_PATH . "/layouts/sidebar.php";
+require_once ROOT_PATH . "/layouts/navbar.php";
 
-require_once "layouts/navbar.php";
+// Default page
+$page = $_GET['page'] ?? "dashboard_home";
+
+// Allowed pages
+$allowedPages = [
+    "dashboard_home",
+    "organization",
+    "assets",
+    "allocation",
+    "maintenance",
+    "reports",
+    "notifications",
+    "settings"
+];
+
+if (!in_array($page, $allowedPages)) {
+    $page = "dashboard_home";
+}
 
 ?>
 
 <div class="content">
 
-    <div class="cards">
+    <?php
 
-        <div class="card-box">
+    include ROOT_PATH . "/pages/" . $page . ".php";
 
-            <h2>245</h2>
-
-            <p>Total Assets</p>
-
-        </div>
-
-        <div class="card-box">
-
-            <h2>180</h2>
-
-            <p>Allocated</p>
-
-        </div>
-
-        <div class="card-box">
-
-            <h2>18</h2>
-
-            <p>Maintenance</p>
-
-        </div>
-
-        <div class="card-box">
-
-            <h2>25</h2>
-
-            <p>Bookings</p>
-
-        </div>
-
-    </div>
-
-    <canvas id="assetChart"></canvas>
+    ?>
 
 </div>
 
-<script>
-    new Chart(document.getElementById('assetChart'), {
-
-        type: 'bar',
-
-        data: {
-
-            labels: ['Electronics', 'Furniture', 'Vehicles', 'Equipment'],
-
-            datasets: [{
-
-                label: 'Assets',
-
-                data: [120, 80, 25, 20]
-
-            }]
-
-        }
-
-    });
-</script>
-
 <?php
 
-require_once "layouts/footer.php";
+require_once ROOT_PATH . "/layouts/footer.php";
 
 ?>
