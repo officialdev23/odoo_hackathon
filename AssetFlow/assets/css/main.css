@@ -467,14 +467,12 @@ body {
 
 /* Polished Dashboard Animations */
 
-@keyframes fadeInUp {
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(16px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
@@ -486,7 +484,7 @@ body {
 
 /* Page Entrance */
 .content {
-    animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    /* No animation on parent to avoid stacking context issues with Bootstrap modals */
 }
 
 /* Bell Shake on Hover */
