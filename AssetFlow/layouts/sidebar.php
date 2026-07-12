@@ -21,6 +21,20 @@
             </a>
         </li>
 
+        <li class="nav-item">
+
+            <a
+                class="nav-link <?= $page == "employees" ? "active" : ""; ?>"
+                href="<?= BASE_URL ?>dashboard.php?page=employees">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>Employees</span>
+
+            </a>
+
+        </li>
+
         <li>
             <a href="<?= BASE_URL ?>dashboard.php?page=assets">
                 <i class="fa-solid fa-box"></i>
@@ -28,11 +42,20 @@
             </a>
         </li>
 
-        <li>
-            <a href="<?= BASE_URL ?>dashboard.php?page=allocation">
+        <li class="nav-item">
+
+            <a
+
+                class="nav-link <?= $page == "allocation" ? "active" : ""; ?>"
+
+                href="<?= BASE_URL ?>dashboard.php?page=allocation">
+
                 <i class="fa-solid fa-right-left"></i>
-                Allocation
+
+                <span>Allocation</span>
+
             </a>
+
         </li>
 
         <li>

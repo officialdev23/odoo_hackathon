@@ -15,6 +15,7 @@ $page = $_GET['page'] ?? "dashboard_home";
 $allowedPages = [
     "dashboard_home",
     "organization",
+    "employees",
     "assets",
     "allocation",
     "maintenance",

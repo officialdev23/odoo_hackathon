@@ -11,6 +11,7 @@
                 "dashboard_home" => "Dashboard",
 
                 "organization" => "Organization Setup",
+                "employees" => "Employees",
 
                 "assets" => "Assets",
 
