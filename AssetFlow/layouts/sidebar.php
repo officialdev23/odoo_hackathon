@@ -1,7 +1,7 @@
 <div class="sidebar">
 
-    <div class="logo">
-        <i class="fa-solid fa-cubes"></i>
+    <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+        <img src="<?= BASE_URL ?>assets/logo.svg" alt="AssetFlow Logo" style="width: 32px; height: 32px;">
         <span>AssetFlow</span>
     </div>
 

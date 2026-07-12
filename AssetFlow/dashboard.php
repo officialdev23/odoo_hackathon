@@ -4,10 +4,6 @@ require_once __DIR__ . "/config/config.php";
 require_once ROOT_PATH . "/includes/session.php";
 require_once ROOT_PATH . "/middleware/AuthMiddleware.php";
 
-require_once ROOT_PATH . "/layouts/header.php";
-require_once ROOT_PATH . "/layouts/sidebar.php";
-require_once ROOT_PATH . "/layouts/navbar.php";
-
 // Default page
 $page = $_GET['page'] ?? "dashboard_home";
 
@@ -27,6 +23,10 @@ $allowedPages = [
 if (!in_array($page, $allowedPages)) {
     $page = "dashboard_home";
 }
+
+require_once ROOT_PATH . "/layouts/header.php";
+require_once ROOT_PATH . "/layouts/sidebar.php";
+require_once ROOT_PATH . "/layouts/navbar.php";
 
 ?>
 
