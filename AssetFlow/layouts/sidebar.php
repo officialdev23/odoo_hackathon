@@ -15,8 +15,8 @@ $currentPage = $page ?? 'dashboard_home';
     <ul>
         <!-- Dashboard Home -->
         <li class="nav-item">
-            <a class="nav-link <?= $currentPage == "dashboard_home" ? "active" : ""; ?>" 
-               href="<?= BASE_URL ?>dashboard.php?page=dashboard_home">
+            <a class="nav-link <?= $currentPage == "dashboard_home" ? "active" : ""; ?>"
+                href="<?= BASE_URL ?>dashboard.php?page=dashboard_home">
                 <i class="fa-solid fa-chart-line"></i>
                 <span>Dashboard</span>
             </a>
@@ -24,8 +24,8 @@ $currentPage = $page ?? 'dashboard_home';
 
         <!-- Organization -->
         <li class="nav-item">
-            <a class="nav-link <?= $currentPage == "organization" ? "active" : ""; ?>" 
-               href="<?= BASE_URL ?>dashboard.php?page=organization">
+            <a class="nav-link <?= $currentPage == "organization" ? "active" : ""; ?>"
+                href="<?= BASE_URL ?>dashboard.php?page=organization">
                 <i class="fa-solid fa-building"></i>
                 <span>Organization</span>
             </a>
@@ -33,8 +33,8 @@ $currentPage = $page ?? 'dashboard_home';
 
         <!-- Employees -->
         <li class="nav-item">
-            <a class="nav-link <?= $currentPage == "employees" ? "active" : ""; ?>" 
-               href="<?= BASE_URL ?>dashboard.php?page=employees">
+            <a class="nav-link <?= $currentPage == "employees" ? "active" : ""; ?>"
+                href="<?= BASE_URL ?>dashboard.php?page=employees">
                 <i class="fa-solid fa-users"></i>
                 <span>Employees</span>
             </a>
@@ -42,8 +42,8 @@ $currentPage = $page ?? 'dashboard_home';
 
         <!-- Assets -->
         <li class="nav-item">
-            <a class="nav-link <?= $currentPage == "assets" ? "active" : ""; ?>" 
-               href="<?= BASE_URL ?>dashboard.php?page=assets">
+            <a class="nav-link <?= $currentPage == "assets" ? "active" : ""; ?>"
+                href="<?= BASE_URL ?>dashboard.php?page=assets">
                 <i class="fa-solid fa-box"></i>
                 <span>Assets</span>
             </a>
@@ -51,21 +51,21 @@ $currentPage = $page ?? 'dashboard_home';
 
         <!-- Allocation -->
         <li class="nav-item">
-            <a class="nav-link <?= $currentPage == "allocation" ? "active" : ""; ?>" 
-               href="<?= BASE_URL ?>dashboard.php?page=allocation">
+            <a class="nav-link <?= $currentPage == "allocation" ? "active" : ""; ?>"
+                href="<?= BASE_URL ?>dashboard.php?page=allocation">
                 <i class="fa-solid fa-right-left"></i>
                 <span>Allocation</span>
             </a>
         </li>
 
-        <!-- Maintenance -->
+        <!-- Maintenance
         <li class="nav-item">
             <a class="nav-link <?= $currentPage == "maintenance" ? "active" : ""; ?>" 
                href="<?= BASE_URL ?>dashboard.php?page=maintenance">
                 <i class="fa-solid fa-screwdriver-wrench"></i>
                 <span>Maintenance</span>
             </a>
-        </li>
+        </li> -->
 
         <!-- Reports -->
         <li>
@@ -75,31 +75,31 @@ $currentPage = $page ?? 'dashboard_home';
             </a>
         </li>
 
-        <!-- Notifications -->
+        <!-- Notifications
         <li class="nav-item">
-            <a class="nav-link <?= $currentPage == "notifications" ? "active" : ""; ?>" 
-               href="<?= BASE_URL ?>dashboard.php?page=notifications">
+            <a class="nav-link <?= $currentPage == "notifications" ? "active" : ""; ?>"
+                href="<?= BASE_URL ?>dashboard.php?page=notifications">
                 <i class="fa-solid fa-bell"></i>
                 <span>Notifications</span>
             </a>
         </li>
 
-        <!-- Settings -->
+        Settings 
         <li class="nav-item">
-            <a class="nav-link <?= $currentPage == "settings" ? "active" : ""; ?>" 
-               href="<?= BASE_URL ?>dashboard.php?page=settings">
+            <a class="nav-link <?= $currentPage == "settings" ? "active" : ""; ?>"
+                href="<?= BASE_URL ?>dashboard.php?page=settings">
                 <i class="fa-solid fa-gear"></i>
                 <span>Settings</span>
             </a>
-        </li>
+        </li> -->
 
         <!-- Divider line -->
         <li class="nav-divider" style="height: 1px; background: rgba(255,255,255,0.08); margin: 15px 0;"></li>
 
         <!-- Logout -->
         <li class="nav-item">
-            <a class="nav-link logout-link" 
-               href="<?= BASE_URL ?>logout.php">
+            <a class="nav-link logout-link"
+                href="<?= BASE_URL ?>logout.php">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <span>Logout</span>
             </a>

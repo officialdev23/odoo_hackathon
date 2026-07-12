@@ -1,3 +1,120 @@
+<?php
+
+require_once ROOT_PATH . "/config/database.php";
+
+$db = new Database();
+$conn = $db->connect();
+
+$totalEmployees = $conn->query("SELECT COUNT(*) FROM employees")->fetchColumn();
+
+$totalAssets = $conn->query("SELECT COUNT(*) FROM assets")->fetchColumn();
+
+$allocatedAssets = $conn->query("SELECT COUNT(*) FROM assets WHERE asset_status='Allocated'")->fetchColumn();
+
+
+$departments = $conn->query("
+
+SELECT
+
+department_id id,
+
+department_name
+
+FROM departments
+
+ORDER BY department_name
+
+")->fetchAll(PDO::FETCH_ASSOC);
+
+
+$employees = $conn->query("
+
+SELECT
+
+employee_id id,
+
+CONCAT(first_name,' ',last_name) employee_name
+
+FROM employees
+
+ORDER BY first_name
+
+")->fetchAll(PDO::FETCH_ASSOC);
+
+
+$employeeData = $conn->query("
+
+SELECT
+
+e.employee_id id,
+
+CONCAT(e.first_name,' ',e.last_name) employee_name,
+
+d.department_name department,
+
+COUNT(al.allocation_id) asset_count,
+
+e.status
+
+FROM employees e
+
+LEFT JOIN departments d
+
+ON e.department_id=d.department_id
+
+LEFT JOIN asset_allocations al
+
+ON e.employee_id=al.employee_id
+
+GROUP BY e.employee_id
+
+ORDER BY e.first_name
+
+")->fetchAll(PDO::FETCH_ASSOC);
+
+
+$assetData = $conn->query("
+
+SELECT
+
+a.asset_id,
+
+a.asset_name,
+
+c.category_name asset_type,
+
+IFNULL(
+
+CONCAT(e.first_name,' ',e.last_name),
+
+'Not Allocated'
+
+) employee_name,
+
+a.asset_status status
+
+FROM assets a
+
+LEFT JOIN asset_categories c
+
+ON a.category_id=c.category_id
+
+LEFT JOIN asset_allocations al
+
+ON a.asset_id=al.asset_id
+
+AND al.allocation_status='Allocated'
+
+LEFT JOIN employees e
+
+ON al.employee_id=e.employee_id
+
+ORDER BY a.asset_name
+
+")->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!-- Loading Overlay -->
 <div id="loadingOverlay"
     class="position-fixed top-0 start-0 w-100 h-100 bg-white d-none justify-content-center align-items-center"
@@ -62,20 +179,10 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-6">
-            <div class="card shadow-sm h-100" id="cardDamaged">
-                <div class="card-body">
-                    <small class="text-secondary">Damaged</small>
-                    <h2 class="fw-bold mb-0 text-danger" id="damagedAssets">
-                        <?= $damagedAssets ?? 0 ?>
-                    </h2>
-                </div>
-            </div>
-        </div>
 
     </div>
 
-    <!-- Filters -->
+    <!-- Filters
     <div class="card shadow-sm mb-4" id="filterCard">
 
         <div class="card-header fw-semibold">
@@ -84,7 +191,7 @@
 
         <div class="card-body">
 
-            <form id="reportForm" method="POST" action="/odoo_hackathon/AssetFlow/pages/reports.php">
+            <form id="reportForm" method="POST" action="<?= BASE_URL ?>dashboard.php?page=reports">
 
                 <div class="row g-3">
 
@@ -103,9 +210,9 @@
                         <select class="form-select" name="department" id="department">
                             <option value="">All</option>
                             <?php foreach (($departments ?? []) as $d) { ?>
-                            <option value="<?= $d['id'] ?>">
-                                <?= $d['department_name'] ?>
-                            </option>
+                                <option value="<?= $d['id'] ?>">
+                                    <?= $d['department_name'] ?>
+                                </option>
                             <?php } ?>
                         </select>
                     </div>
@@ -115,9 +222,9 @@
                         <select class="form-select" name="employee" id="employee">
                             <option value="">All</option>
                             <?php foreach (($employees ?? []) as $e) { ?>
-                            <option value="<?= $e['id'] ?>">
-                                <?= $e['employee_name'] ?>
-                            </option>
+                                <option value="<?= $e['id'] ?>">
+                                    <?= $e['employee_name'] ?>
+                                </option>
                             <?php } ?>
                         </select>
                     </div>
@@ -127,9 +234,9 @@
                         <select class="form-select" name="asset_type" id="asset_type">
                             <option value="">All</option>
                             <?php foreach (($assetTypes ?? []) as $a) { ?>
-                            <option value="<?= $a['id'] ?>">
-                                <?= $a['asset_type'] ?>
-                            </option>
+                                <option value="<?= $a['id'] ?>">
+                                    <?= $a['asset_type'] ?>
+                                </option>
                             <?php } ?>
                         </select>
                     </div>
@@ -165,7 +272,7 @@
 
         </div>
 
-    </div>
+    </div> -->
 
     <!-- Employee Table -->
     <div class="card shadow-sm mb-4" id="employeeSection">
@@ -192,13 +299,13 @@
 
                     <?php foreach (($employeeData ?? []) as $emp) { ?>
 
-                    <tr>
-                        <td><?= $emp['id'] ?></td>
-                        <td><?= $emp['employee_name'] ?></td>
-                        <td><?= $emp['department'] ?></td>
-                        <td><?= $emp['asset_count'] ?></td>
-                        <td><?= $emp['status'] ?></td>
-                    </tr>
+                        <tr>
+                            <td><?= $emp['id'] ?></td>
+                            <td><?= $emp['employee_name'] ?></td>
+                            <td><?= $emp['department'] ?></td>
+                            <td><?= $emp['asset_count'] ?></td>
+                            <td><?= $emp['status'] ?></td>
+                        </tr>
 
                     <?php } ?>
 
@@ -237,13 +344,13 @@
 
                     <?php foreach (($assetData ?? []) as $asset) { ?>
 
-                    <tr>
-                        <td><?= $asset['asset_id'] ?></td>
-                        <td><?= $asset['asset_name'] ?></td>
-                        <td><?= $asset['asset_type'] ?></td>
-                        <td><?= $asset['employee_name'] ?></td>
-                        <td><?= $asset['status'] ?></td>
-                    </tr>
+                        <tr>
+                            <td><?= $asset['asset_id'] ?></td>
+                            <td><?= $asset['asset_name'] ?></td>
+                            <td><?= $asset['asset_type'] ?></td>
+                            <td><?= $asset['employee_name'] ?></td>
+                            <td><?= $asset['status'] ?></td>
+                        </tr>
 
                     <?php } ?>
 
@@ -256,81 +363,33 @@
     </div>
 
     <!-- Damage Table -->
-    <div class="card shadow-sm mb-4" id="damageSection">
 
-        <div class="card-header fw-semibold">
-            Damage Report
-        </div>
-
-        <div class="table-responsive">
-
-            <table class="table table-bordered table-hover align-middle mb-0" id="damageTable">
-
-                <thead class="table-light">
-
-                    <tr>
-                        <th>Asset</th>
-                        <th>Employee</th>
-                        <th>Damage</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    <?php foreach (($damageData ?? []) as $d) { ?>
-
-                    <tr>
-                        <td><?= $d['asset_name'] ?></td>
-                        <td><?= $d['employee_name'] ?></td>
-                        <td><?= $d['damage_reason'] ?></td>
-                        <td><?= $d['damage_date'] ?></td>
-                        <td><?= $d['status'] ?></td>
-                    </tr>
-
-                    <?php } ?>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
 
     <!-- Button -->
-    <div class="text-end mb-5">
-        <a href="/odoo_hackathon/AssetFlow/pages/reports.php">
-            <button class="btn btn-primary btn-lg px-5" id="generateReportBtn" type="submit" form="reportForm">
-                Generate Report
-            </button>
-        </a>
-    </div>
+
 </div>
 
 <script>
-gsap.from("#pageHeader", {
-    opacity: 0,
-    y: -30,
-    duration: .7
-});
-gsap.from(".card", {
-    opacity: 0,
-    y: 25,
-    stagger: .08,
-    duration: .6
-});
-gsap.from("table", {
-    opacity: 0,
-    y: 20,
-    stagger: .15,
-    duration: .6
-});
+    gsap.from("#pageHeader", {
+        opacity: 0,
+        y: -30,
+        duration: .7
+    });
+    gsap.from(".card", {
+        opacity: 0,
+        y: 25,
+        stagger: .08,
+        duration: .6
+    });
+    gsap.from("table", {
+        opacity: 0,
+        y: 20,
+        stagger: .15,
+        duration: .6
+    });
 
-document.getElementById("reportForm").addEventListener("submit", function() {
-    document.getElementById("loadingOverlay").classList.remove("d-none");
-    document.getElementById("loadingOverlay").classList.add("d-flex");
-});
+    document.getElementById("reportForm").addEventListener("submit", function() {
+        document.getElementById("loadingOverlay").classList.remove("d-none");
+        document.getElementById("loadingOverlay").classList.add("d-flex");
+    });
 </script>
