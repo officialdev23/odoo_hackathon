@@ -1,4 +1,4 @@
-# AssetFlow Pro — Enterprise Asset Management System
+# AssetFlow Pro - Enterprise Asset Management System
 
 AssetFlow Pro is a clean, modern, and high-performance IT and physical asset tracking solution designed for corporate environments. It features a curated warm-sand and earth-tone design theme (#fefae0 and #d4a373) and a responsive, card-based interface styled using Bootstrap 5, vanilla CSS3 variables, Chart.js, and GSAP animations.
 
