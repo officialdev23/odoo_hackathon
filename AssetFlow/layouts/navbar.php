@@ -4,7 +4,33 @@
 
         <div>
 
-            <h4>Dashboard</h4>
+            <?php
+
+            $pageTitles = [
+
+                "dashboard_home" => "Dashboard",
+
+                "organization" => "Organization Setup",
+
+                "assets" => "Assets",
+
+                "allocation" => "Asset Allocation",
+
+                "maintenance" => "Maintenance",
+
+                "reports" => "Reports",
+
+                "notifications" => "Notifications",
+
+                "settings" => "Settings"
+
+            ];
+
+            $currentPage = $_GET['page'] ?? "dashboard_home";
+
+            ?>
+
+            <h4><?= $pageTitles[$currentPage] ?></h4>
 
         </div>
 
